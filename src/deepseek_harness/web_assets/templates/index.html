@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LLM Agent Harness</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <main>
+    <h1>LLM Agent Harness</h1>
+    <p class="subtitle">和模型多轮讨论项目，分析代码，并在你确认后提出修改。</p>
+    <div class="grid">
+      <section class="panel">
+        <div class="toolbar">
+          <h2>项目与对话</h2>
+          <button class="secondary" id="newSessionButton">新建会话</button>
+          <button class="secondary" id="retryButton" disabled>重试上一次</button>
+          <button class="danger" id="cancelButton" disabled>停止任务</button>
+        </div>
+        <label for="workspace">工作区</label>
+        <input id="workspace" placeholder="例如：C:\Users\你\Desktop\demo_workspace">
+        <div class="hint">模型只能读取这个文件夹及其子文件。</div>
+        <label>快捷任务</label>
+        <div class="quick" id="quickTasks"></div>
+        <label for="prompt">你想让模型做什么？</label>
+        <textarea id="prompt" placeholder="例如：分析项目结构，告诉我程序入口在哪里。"></textarea>
+        <div class="help"><b>提示：</b>第一次输入任务后，可以继续追问；模型会保留本次会话上下文。</div>
+        <label><input id="edit" type="checkbox">允许模型创建编辑提案（仍需人工批准）</label>
+        <div><button id="runButton">开始对话</button></div>
+        <div class="summary">
+          <div class="metric"><small>状态</small><b id="status">等待开始</b></div>
+          <div class="metric"><small>轮次</small><b id="turnCount">0</b></div>
+          <div class="metric"><small>耗时</small><b id="duration">-</b></div>
+          <div class="metric"><small>Token</small><b id="tokens">-</b></div>
+        </div>
+        <div id="chat" class="chat"><div class="empty">对话内容会显示在这里。</div></div>
+        <label for="followup">继续追问</label>
+        <textarea id="followup" placeholder="例如：请具体解释你发现的第一个问题。"></textarea>
+        <button id="followupButton" disabled>发送追问</button>
+      </section>
+      <section class="panel">
+        <h2>代码修改建议</h2>
+        <p class="hint">这里只显示每个文件的最新修改建议。模型提出修改后，你可以查看 diff，再批准或拒绝。</p>
+        <div class="help">模型不会直接修改文件。只有点击“批准应用”后，文件才会真正写入。</div>
+        <button class="secondary" id="refreshButton">刷新建议</button>
+        <button class="approve" id="approveAllButton" disabled>批准当前会话全部修改并测试</button>
+        <h3>当前会话</h3>
+        <div id="proposals"><div class="empty">当前没有代码修改建议。</div></div>
+        <details class="history-box"><summary>历史修改记录</summary><div id="historyProposals"><div class="empty">尚未加载历史记录。</div></div></details>
+      </section>
+    </div>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

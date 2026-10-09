@@ -1,0 +1,5 @@
+{
+  "allowed_commands": [
+    ["python", "-m", "unittest", "discover", "-s", "tests", "-t", ".", "-p", "test*.py"]
+  ]
+}
