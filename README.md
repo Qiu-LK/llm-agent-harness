@@ -19,7 +19,8 @@
 需要 Python 3.11 或更高版本：
 
 ```powershell
-cd "C:\Users\邱璟豪\Desktop\新建文件夹"
+git clone https://github.com/Qiu-LK/llm-agent-harness.git
+cd .\llm-agent-harness
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -e .
